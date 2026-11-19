@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Testando seu QI</title>
+<style>
+:root{--bg:#eef2fb;--card:#fff;--tx:#14213d;--mut:#5b6780;--ac:#2563eb;--ac2:#e2eaff;--bd:#d8e0f0;--gold:#b7791f;--ok:#d9f5e3;--okb:#22a559;--no:#fde2e2;--nob:#d93b3b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1226;--card:#141d38;--tx:#eef2fb;--mut:#9fb0d0;--ac:#6b9bff;--ac2:#1b2a55;--bd:#26345f;--gold:#f5b301;--ok:#123a27;--okb:#34d27a;--no:#401a1f;--nob:#ff6b6b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1226;--card:#141d38;--tx:#eef2fb;--mut:#9fb0d0;--ac:#6b9bff;--ac2:#1b2a55;--bd:#26345f;--gold:#f5b301;--ok:#123a27;--okb:#34d27a;--no:#401a1f;--nob:#ff6b6b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:600px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+h1{font-size:1.4rem;margin:0}
+.pill{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:5px 12px;font-weight:700;color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:10px 0}
+.card h3{margin:0 0 4px;font-size:1.02rem}
+.card p{margin:0 0 8px;color:var(--mut);font-size:.93rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:999px;font:inherit;cursor:pointer}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+.go{display:block;width:100%;border:0;background:var(--ac);color:#fff;padding:14px;border-radius:14px;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;margin:12px 0}
+.seg{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;align-items:end;margin-bottom:8px}
+.seg i{height:6px;border-radius:4px;background:var(--bd)}
+.seg i.cp{height:10px}
+.seg i.d{background:var(--gold)}
+.seg i.n{background:var(--ac)}
+.bar{display:flex;justify-content:space-between;font-size:.9rem;color:var(--mut)}
+.gold{color:var(--gold)}
+.q small{color:var(--mut)}
+.q h2{font-size:1.2rem;margin:4px 0 0;line-height:1.35}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--tx);border:2px solid var(--bd);border-radius:14px;padding:13px 14px;margin:8px 0;font:inherit;cursor:pointer}
+.opt b{display:inline-block;width:26px;color:var(--ac)}
+.opt:disabled{opacity:.45;cursor:default}
+.opt.ok{opacity:1;background:var(--ok);border-color:var(--okb)}
+.opt.bad{opacity:1;background:var(--no);border-color:var(--nob)}
+.ll{display:flex;gap:8px;margin-top:6px}
+.ll button{flex:1;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;padding:9px 4px;font:inherit;font-size:.9rem;cursor:pointer}
+.ll button:disabled{opacity:.4}
+.reward{background:var(--ok);border:1px solid var(--okb);border-radius:14px;padding:12px;margin-top:10px;animation:pop .35s}
+.reward.bad{background:var(--no);border-color:var(--nob)}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.big{font-size:2rem;font-weight:800;color:var(--gold)}
+.stat{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd)}
+.bdg{font-size:1.8rem;display:flex;gap:10px}
+.bdg span.off{filter:grayscale(1);opacity:.35}
+.tm{height:6px;background:var(--bd);border-radius:4px;overflow:hidden;margin:8px 0}.tm i{display:block;height:100%;width:100%;background:var(--ac);transition:width .2s linear}.sw{width:44px;height:44px;border-radius:50%;border:3px solid transparent;cursor:pointer}.sw.on{border-color:var(--tx)}.chip:disabled{opacity:.4}
+.ig{display:block;text-align:center;background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);color:#fff;text-decoration:none;font-weight:700;padding:13px;border-radius:14px;margin:10px 0}.ft{text-align:center;color:var(--mut);font-size:.85rem;margin-top:16px}.ft a{color:var(--ac);font-weight:600}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.bar{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px 10px;margin-bottom:6px}
+.ft{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:6px 14px;display:table;margin:16px auto 0}
+.ft a{background:linear-gradient(90deg,var(--ac),#ec4899,#f59e0b,var(--ac));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
+@keyframes sh{to{background-position:200% 0}}
+@media (prefers-reduced-motion:reduce){.ft a{animation:none}}
+.neon{text-align:center;font:900 clamp(1.7rem,9vw,2.6rem)/1.05 system-ui,sans-serif;letter-spacing:.14em;color:#fff8dc;margin:2px 0 12px;text-shadow:0 0 4px #fff,0 0 12px #ffd34d,0 0 26px #ffb300,0 0 48px #8a2be2,0 0 80px #1e90ff;animation:np 2.8s ease-in-out infinite}
+.neon small{display:block;font-size:.34em;letter-spacing:.45em;margin-top:6px;color:#9ad1ff;text-shadow:0 0 8px #1e90ff,0 0 18px #7c3aed}
+@keyframes np{0%,100%{text-shadow:0 0 4px #fff,0 0 12px #ffd34d,0 0 26px #ffb300,0 0 48px #8a2be2,0 0 80px #1e90ff}50%{text-shadow:0 0 2px #fff,0 0 8px #ffd34d,0 0 16px #ffb300,0 0 30px #8a2be2,0 0 52px #1e90ff}}
+h1{color:#fff;text-shadow:0 0 6px #3b82f6,0 0 16px #7c3aed}
+.seg i{background:rgba(255,255,255,.28)}
+@media (prefers-reduced-motion:reduce){.neon{animation:none}}
+.card{background:rgba(14,20,52,.76);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<main>
+<div class="neon">LIPE CASTRO<small>✦ CRIADOR DO JOGO ✦</small></div>
+<header><h1>🧠 Testando seu QI</h1><div style="display:flex;gap:8px;align-items:center"><button class="pill" id="sn" style="cursor:pointer;font:inherit" aria-label="Som">🔊</button><div class="pill" id="w">🪙 0</div></div></header>
+<p class="ft" id="off" style="display:none">📴 Sem Internet? Tudo bem, o jogo funciona offline!</p>
+<div id="app"></div>
+<p class="ft">Feito por <a href="https://www.instagram.com/lipe__castro7/" target="_blank" rel="noopener">Lipe Castro</a> · @lipe__castro7</p>
+</main>
+<script>
+var $=function(s){return document.querySelector(s)};
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function fmt(n){return n.toLocaleString("pt-BR")}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+
+var Q=[
+["Jogos",1,"Qual é o nome do encanador mais famoso da Nintendo?","Mario","Sonic","Link","Pac-Man"],
+["Jogos",1,"Qual é a cor do Pac-Man?","Amarelo","Azul","Vermelho","Verde"],
+["Jogos",1,"Qual destes consoles é fabricado pela Sony?","PlayStation","Xbox","Switch","Mega Drive"],
+["Jogos",2,"Qual é o nome do protagonista da série The Legend of Zelda?","Link","Zelda","Ganon","Epona"],
+["Jogos",2,"Qual empresa criou o personagem Sonic?","Sega","Nintendo","Sony","Atari"],
+["Jogos",2,"Em qual região começa a aventura de Pokémon Red e Blue?","Kanto","Johto","Hoenn","Sinnoh"],
+["Jogos",3,"Quem criou o personagem Mario?","Shigeru Miyamoto","Hideo Kojima","Satoru Iwata","Gabe Newell"],
+["Jogos",3,"Em que ano os primeiros Pokémon foram lançados no Japão?","1996","1990","2000","1993"],
+["Jogos",3,"Como se chama a espada lendária de Link?","Espada Mestra","Excalibur","Masamune","Lâmina Sagrada"],
+["Futebol",1,"Quantos jogadores de cada time ficam em campo, contando o goleiro?","11","9","10","12"],
+["Futebol",1,"Quantos minutos tem uma partida normal de futebol, sem acréscimos?","90","80","100","120"],
+["Futebol",1,"Qual país venceu a Copa do Mundo de 2002?","Brasil","Alemanha","França","Itália"],
+["Futebol",2,"Quantas Copas do Mundo o Brasil já conquistou?","5","4","6","3"],
+["Futebol",2,"Qual país sediou a Copa do Mundo de 2018?","Rússia","Catar","Alemanha","África do Sul"],
+["Futebol",2,"Quem é o maior artilheiro da história das Copas do Mundo?","Miroslav Klose","Pelé","Ronaldo","Messi"],
+["Futebol",3,"Qual país venceu a primeira Copa do Mundo, em 1930?","Uruguai","Brasil","Argentina","Itália"],
+["Futebol",3,"Quem marcou os dois gols do Brasil na final da Copa de 2002?","Ronaldo","Rivaldo","Ronaldinho","Kaká"],
+["Futebol",3,"Quem marcou o gol da Espanha na final da Copa de 2010?","Iniesta","Xavi","Villa","Torres"],
+["Matemática",1,"Quanto é 7 × 8?","56","54","49","64"],
+["Matemática",1,"Qual é a raiz quadrada de 81?","9","8","7","11"],
+["Matemática",1,"Quanto é 15 + 27?","42","32","52","41"],
+["Matemática",2,"Quanto é 25% de 80?","20","25","15","40"],
+["Matemática",2,"Quanto é 2 elevado a 5?","32","16","25","64"],
+["Matemática",2,"Um produto de R$ 200 recebe 15% de desconto. Qual é o novo preço?","R$ 170","R$ 185","R$ 150","R$ 160"],
+["Matemática",3,"Quantos números primos existem entre 1 e 20?","8","7","9","6"],
+["Matemática",3,"Se 3x + 5 = 20, quanto vale x?","5","4","6","15"],
+["Matemática",3,"Qual é a soma dos ângulos internos de um hexágono?","720°","540°","360°","900°"],
+["Português",1,"Qual é o plural de “pão”?","pães","pãos","pões","pãe"],
+["Português",1,"Qual palavra está escrita corretamente?","exceção","excessão","eceção","exessão"],
+["Português",1,"Qual é o antônimo de “alegre”?","triste","feliz","contente","animado"],
+["Português",2,"Qual é o coletivo de “cães”?","matilha","manada","bando","cardume"],
+["Português",2,"Qual é a classe gramatical de “rapidamente”?","advérbio","adjetivo","verbo","substantivo"],
+["Português",2,"Qual é o feminino de “conde”?","condessa","conda","condeza","condisa"],
+["Português",3,"Em qual frase a crase está correta?","Fui à praia ontem.","Cheguei à pé.","Vi à ela na rua.","Estou disposto à ajudar."],
+["Português",3,"Qual é o sujeito da oração “Choveu muito ontem”?","Oração sem sujeito","Ontem","Muito","Choveu"],
+["Português",3,"Em “Ele é uma fera na matemática”, qual figura de linguagem aparece?","Metáfora","Hipérbole","Ironia","Onomatopeia"],
+["Geografia",1,"Qual é a capital do Brasil?","Brasília","Rio de Janeiro","São Paulo","Salvador"],
+["Geografia",1,"Qual é o maior oceano do planeta?","Pacífico","Atlântico","Índico","Ártico"],
+["Geografia",1,"Em qual continente fica o Egito?","África","Ásia","Europa","Oceania"],
+["Geografia",2,"Qual é o maior país do mundo em área?","Rússia","Canadá","China","Estados Unidos"],
+["Geografia",2,"Qual é a capital da Austrália?","Camberra","Sydney","Melbourne","Perth"],
+["Geografia",2,"Qual é o rio mais extenso do Brasil?","Amazonas","São Francisco","Paraná","Tocantins"],
+["Geografia",3,"Qual é o menor país do mundo em área?","Vaticano","Mônaco","San Marino","Liechtenstein"],
+["Geografia",3,"Qual é o maior deserto quente do mundo?","Saara","Gobi","Kalahari","Atacama"],
+["Geografia",3,"Qual é o país mais populoso do mundo atualmente?","Índia","China","Estados Unidos","Indonésia"],
+["Jogos",1,"No Minecraft, qual criatura explode ao chegar perto do jogador?","Creeper","Zumbi","Esqueleto","Aranha"],
+["Jogos",2,"Qual princesa Mario costuma resgatar?","Peach","Daisy","Zelda","Rosalina"],
+["Jogos",3,"Qual estúdio desenvolveu o jogo The Last of Us?","Naughty Dog","Rockstar","Ubisoft","Bethesda"],
+["Futebol",1,"Qual cartão expulsa um jogador de campo?","Vermelho","Amarelo","Azul","Verde"],
+["Futebol",2,"Qual país sediou a Copa do Mundo de 2014?","Brasil","Alemanha","Argentina","África do Sul"],
+["Futebol",3,"Quantas Copas do Mundo a Alemanha conquistou até 2022?","4","3","5","2"],
+["Matemática",1,"Quanto é 100 − 37?","63","67","73","53"],
+["Matemática",2,"Qual é o perímetro de um quadrado de lado 7?","28","49","14","21"],
+["Matemática",3,"Quanto é 12² − 10²?","44","22","24","34"],
+["Português",1,"Quantas vogais existem no alfabeto português?","5","6","4","7"],
+["Português",2,"Qual destas palavras é um substantivo próprio?","Brasil","cidade","país","rio"],
+["Português",3,"Qual frase tem a concordância correta?","Faz dois anos que ele viajou.","Fazem dois anos que ele viajou.","Fazem dois ano que ele viajou.","Faz dois anos que ele viajaram."],
+["Geografia",1,"Em qual país fica a Torre Eiffel?","França","Itália","Espanha","Alemanha"],
+["Geografia",2,"Qual é a capital da Argentina?","Buenos Aires","Santiago","Lima","Montevidéu"],
+["Geografia",3,"Qual é o ponto mais alto do Brasil?","Pico da Neblina","Pico da Bandeira","Monte Roraima","Pico Paraná"],
+["História",1,"Em que ano o Brasil declarou independência de Portugal?","1822","1500","1889","1922"],
+["História",1,"Qual civilização construiu as pirâmides de Gizé?","Egípcia","Romana","Grega","Maia"],
+["História",1,"Quem comandou a esquadra que chegou ao Brasil em 1500?","Pedro Álvares Cabral","Cristóvão Colombo","Dom Pedro I","Vasco da Gama"],
+["História",2,"Quem foi o primeiro presidente do Brasil?","Deodoro da Fonseca","Getúlio Vargas","Dom Pedro II","Juscelino Kubitschek"],
+["História",2,"Em que ano começou a Primeira Guerra Mundial?","1914","1939","1918","1905"],
+["História",2,"Qual evento de 1453 costuma marcar o fim da Idade Média?","Queda de Constantinopla","Descobrimento do Brasil","Revolução Francesa","Queda de Roma"],
+["História",3,"Em que ano o Muro de Berlim caiu?","1989","1991","1985","1979"],
+["História",3,"Qual imperador francês foi derrotado em Waterloo, em 1815?","Napoleão Bonaparte","Luís XIV","Carlos Magno","Júlio César"],
+["História",3,"Qual lei aboliu a escravidão no Brasil, em 1888?","Lei Áurea","Lei do Ventre Livre","Lei Eusébio de Queirós","Lei dos Sexagenários"],
+["Ciências",1,"Qual planeta é conhecido como planeta vermelho?","Marte","Vênus","Júpiter","Saturno"],
+["Ciências",1,"Qual gás as plantas absorvem na fotossíntese?","Gás carbônico","Oxigênio","Nitrogênio","Hélio"],
+["Ciências",1,"Quantos planetas tem o Sistema Solar?","8","9","7","10"],
+["Ciências",2,"Qual é a fórmula química da água?","H₂O","CO₂","O₂","NaCl"],
+["Ciências",2,"Qual órgão bombeia o sangue pelo corpo?","Coração","Pulmão","Fígado","Rim"],
+["Ciências",2,"Qual é o maior osso do corpo humano?","Fêmur","Úmero","Tíbia","Costela"],
+["Ciências",3,"Qual é a velocidade aproximada da luz no vácuo?","300 mil km/s","150 mil km/s","30 mil km/s","3 milhões km/s"],
+["Ciências",3,"Qual elemento químico tem o símbolo Fe?","Ferro","Flúor","Fósforo","Frâncio"],
+["Ciências",3,"Como se chama a divisão celular que gera células-filhas idênticas?","Mitose","Meiose","Osmose","Fagocitose"],
+["Cultura Geral",1,"Quantos dias tem um ano bissexto?","366","365","364","367"],
+["Cultura Geral",1,"Quantas cores tem o arco-íris?","7","5","6","8"],
+["Cultura Geral",1,"Qual animal é conhecido como o rei da selva?","Leão","Tigre","Elefante","Urso"],
+["Cultura Geral",2,"Quem pintou a Mona Lisa?","Leonardo da Vinci","Michelangelo","Pablo Picasso","Van Gogh"],
+["Cultura Geral",2,"Qual idioma tem mais falantes nativos no mundo?","Mandarim","Inglês","Espanhol","Hindi"],
+["Cultura Geral",2,"Quantas cordas tem um violão tradicional?","6","4","5","8"],
+["Cultura Geral",3,"Quem escreveu o livro Dom Casmurro?","Machado de Assis","José de Alencar","Clarice Lispector","Graciliano Ramos"],
+["Cultura Geral",3,"Em qual cidade fica a sede da ONU?","Nova York","Genebra","Paris","Washington"],
+["Cultura Geral",3,"Qual é a moeda oficial do Japão?","Iene","Won","Yuan","Rupia"]
+];
+var CATS={"Jogos":"🎮","Futebol":"⚽","Matemática":"➗","Português":"📚","Geografia":"🌍","História":"🏛️","Ciências":"🔬","Cultura Geral":"🌟"};
+var PR=[100,200,300,500,1000,2000,5000,10000,50000],LV=["Fácil","Médio","Difícil"];
+var sel={};Object.keys(CATS).forEach(function(k){sel[k]=true});
+var wallet=load("wallet",0),badges=load("badges",{}),G=null;
+var inv=load("inv",{f:0,s:0}),curSkin=load("skin","azul");
+var SK={azul:["#2563eb","#e2eaff","#6b9bff","#1b2a55"],roxo:["#7c3aed","#ece4ff","#a78bfa","#2e1f5e"],verde:["#16a34a","#dcfce7","#4ade80","#12351f"],laranja:["#ea580c","#ffedd5","#fb923c","#42210d"]};
+function skin(n){var c=SK[n]||SK.azul,dk=true,r=document.documentElement.style;r.setProperty("--ac",dk?c[2]:c[0]);r.setProperty("--ac2",dk?c[3]:c[1])}
+skin(curSkin);
+
+function wup(){$("#w").textContent="🪙 "+fmt(wallet)}
+function bdg(){return '<div class="bdg"><span class="'+(badges.bronze?'':'off')+'" title="3 acertos">🥉</span><span class="'+(badges.silver?'':'off')+'" title="6 acertos">🥈</span><span class="'+(badges.gold?'':'off')+'" title="9 acertos">🥇</span></div>'}
+
+function home(){wup();G=null;
+$("#app").innerHTML='<div class="card"><h3>Escolha as categorias</h3><div class="chips">'+Object.keys(CATS).map(function(k){return '<button class="chip'+(sel[k]?' on':'')+'" data-c="'+k+'">'+CATS[k]+' '+k+'</button>'}).join("")+'</div></div>'+
+'<div class="card"><h3>Como funciona</h3><p>São 9 perguntas que ficam mais difíceis a cada acerto. Cada resposta certa vale moedas 🪙, e as perguntas 3 e 6 são pontos de segurança: se errar depois delas, você leva o valor garantido. Você tem 30 segundos por pergunta e ganha bônus de velocidade ao responder em menos de 10. Use 50/50 e Pular, compre mais ajudas na loja ou pare para levar o prêmio.</p></div>'+
+'<div class="card"><h3>Suas medalhas</h3>'+bdg()+'<p style="margin-top:6px">🥉 3 acertos · 🥈 6 acertos · 🥇 9 acertos</p></div>'+
+'<div class="card"><h3>📸 Siga o criador</h3><p>Jogo feito por Lipe Castro. Me siga no Instagram e mostre a sua pontuação!</p><a class="ig" href="'+IGU+'" target="_blank" rel="noopener">@lipe__castro7 no Instagram</a></div>'+
+'<div class="card"><h3>🛒 Loja de ajudas</h3><p>Você tem 🪙 '+fmt(wallet)+'. Ajudas extras valem na próxima partida (guardadas: '+inv.f+' de 50/50 e '+inv.s+' de Pular).</p><div class="chips"><button class="chip" data-b="f"'+(wallet<500?' disabled':'')+'>+1 50/50 · 🪙 500</button><button class="chip" data-b="s"'+(wallet<500?' disabled':'')+'>+1 Pular · 🪙 500</button></div></div>'+
+'<div class="card"><h3>🖼️ Fundo do jogo</h3><div class="chips">'+[["cerebro","🧠 Cérebro"],["galaxia","🌌 Galáxia"],["neon","🌆 Cidade neon"],["suave","✨ Suave"]].map(function(o){return '<button class="chip'+(load("bg","cerebro")===o[0]?' on':'')+'" data-g="'+o[0]+'">'+o[1]+'</button>'}).join("")+'</div></div>'+
+'<div class="card"><h3>🎨 Cores do jogo</h3><div class="chips">'+Object.keys(SK).map(function(k){return '<button class="sw'+(k===curSkin?' on':'')+'" data-s="'+k+'" style="background:'+SK[k][0]+'" aria-label="'+k+'"></button>'}).join("")+'</div></div>'+
+'<button class="go" id="go">Jogar</button>'}
+
+function start(){G={i:0,n:0,bonus:0,used:{},ll:{f:1+inv.f,s:1+inv.s},ok:false};inv={f:0,s:0};save("inv",inv);pick();game()}
+function tick(){var l=30-(Date.now()-G.t0)/1000,b=$("#tb");if(b)b.style.width=Math.max(0,l/30*100)+"%";if(l<=0&&!G.ans)answer(-1)}
+function pick(){var lv=Math.floor(G.i/3)+1,ids=[];
+Q.forEach(function(q,i){if(sel[q[0]]&&!G.used[i])ids.push(i)});
+if(!ids.length){G.used={};Q.forEach(function(q,i){if(sel[q[0]])ids.push(i)})}
+var p=ids.filter(function(i){return Q[i][1]===lv});if(!p.length)p=ids;
+var id=p[Math.floor(Math.random()*p.length)],q=Q[id];G.used[id]=1;
+G.cur={q:q[2],cat:q[0],o:shuf([{t:q[3],c:1},{t:q[4]},{t:q[5]},{t:q[6]}])};G.hide=[];G.ans=false}
+
+function game(){var c=G.cur,lvl=LV[Math.floor(G.i/3)],seg="";
+for(var i=0;i<9;i++)seg+='<i class="'+(i<G.i?'d':i===G.i?'n':'')+(i===2||i===5?' cp':'')+'"></i>';
+$("#app").innerHTML='<div class="seg">'+seg+'</div><div class="bar"><span>Pergunta '+(G.i+1)+'/9 · '+lvl+'</span><span>Vale <b class="gold">🪙 '+fmt(PR[G.i])+'</b></span></div>'+
+'<div class="tm"><i id="tb"></i></div><div class="card q"><small>'+CATS[c.cat]+' '+c.cat+'</small><h2>'+c.q+'</h2></div>'+
+c.o.map(function(o,k){return '<button class="opt" data-k="'+k+'"'+(G.hide.indexOf(k)>-1?' disabled':'')+'><b>'+"ABCD".charAt(k)+'</b>'+o.t+'</button>'}).join("")+
+'<div class="ll"><button id="f5"'+(G.ll.f>0&&!G.hide.length?'':' disabled')+'>50/50 ×'+G.ll.f+'</button><button id="sk"'+(G.ll.s>0?'':' disabled')+'>⏭ Pular ×'+G.ll.s+'</button><button id="st">✋ Parar (🪙 '+fmt(G.i?PR[G.i-1]:0)+')</button></div><div id="msg"></div>';clearInterval(G.iv);G.t0=Date.now();G.iv=setInterval(tick,200)}
+
+function answer(k){if(G.ans)return;G.ans=true;clearInterval(G.iv);var c=G.cur,ok=k>=0&&!!c.o[k].c;G.ok=ok;var bn=ok&&(Date.now()-G.t0)/1000<10?Math.round(PR[G.i]*0.1):0;G.bonus+=bn;sfx(ok?"ok":"no");if(!ok&&navigator.vibrate)try{navigator.vibrate(200)}catch(e){}
+document.querySelectorAll(".opt").forEach(function(b,i){b.disabled=true;if(c.o[i].c)b.classList.add("ok");else if(i===k)b.classList.add("bad")});
+document.querySelectorAll(".ll button").forEach(function(b){b.disabled=true});
+if(ok){G.n++;var last=G.i===8,cp=G.i===2||G.i===5;
+$("#msg").innerHTML='<div class="reward">✅ Resposta certa! <b>+🪙 '+fmt(PR[G.i])+'</b>'+(bn?'<br>⚡ Bônus de velocidade: +🪙 '+fmt(bn):'')+(cp?'<br>🛡️ Ponto de segurança garantido!':'')+(!last?'<br><small>Próxima pergunta: um pouco mais difícil.</small>':'')+'</div><button class="go" id="nx">'+(last?'Receber prêmio 🏆':'Próxima pergunta')+'</button>'}
+else{$("#msg").innerHTML='<div class="reward bad">'+(k<0?"⏰ Tempo esgotado!":"❌ Errou!")+' A resposta certa está destacada.</div><button class="go" id="nx">Ver resultado</button>'}
+$("#msg").scrollIntoView({block:"nearest",behavior:"smooth"})}
+
+function finish(prize,why){clearInterval(G.iv);if(why==="win")setTimeout(function(){sfx("win")},300);var bn=G.bonus||0;window.LAST={n:G.n,t:prize+bn};wallet+=prize+bn;save("wallet",wallet);
+if(G.n>=3)badges.bronze=1;if(G.n>=6)badges.silver=1;if(G.n>=9)badges.gold=1;save("badges",badges);wup();
+var t=why==="win"?"Parabéns, você é o campeão! 🏆":why==="stop"?"Você parou e levou o prêmio. Boa decisão!":prize>0?"Você errou, mas garantiu o seu ponto de segurança.":"Não foi dessa vez. Tente de novo!";
+$("#app").innerHTML='<div class="card" style="text-align:center"><div class="big">🪙 '+fmt(prize)+'</div><p>'+t+'</p><div class="stat"><span>Acertos</span><b>'+G.n+'/9</b></div>'+(bn?'<div class="stat"><span>⚡ Bônus de velocidade</span><b>+🪙 '+fmt(bn)+'</b></div>':'')+'<div class="stat"><span>Total na carteira</span><b>🪙 '+fmt(wallet)+'</b></div><div style="display:flex;justify-content:center;margin-top:10px">'+bdg()+'</div></div><a class="ig" href="'+IGU+'" target="_blank" rel="noopener">📸 Gostou? Me siga no Instagram</a><button class="chip" id="sh" style="width:100%;margin:0 0 8px">📤 Compartilhar minha pontuação</button><button class="go" id="again">Voltar ao início</button>'}
+
+$("#app").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var id=b.id;
+if(b.dataset.c){var c=b.dataset.c,n=Object.keys(sel).filter(function(k){return sel[k]}).length;if(sel[c]&&n<=1)return;sel[c]=!sel[c];b.classList.toggle("on",sel[c])}
+else if(id==="sh")share();
+else if(b.dataset.b){if(wallet>=500){wallet-=500;inv[b.dataset.b]++;save("wallet",wallet);save("inv",inv);home()}}
+else if(b.dataset.g){window.setBg(b.dataset.g);home()}
+else if(b.dataset.s){curSkin=b.dataset.s;save("skin",curSkin);skin(curSkin);home()}
+else if(id==="go")start();
+else if(id==="again")home();
+else if(b.dataset.k!==undefined)answer(+b.dataset.k);
+else if(id==="f5"&&G.ll.f>0&&!G.hide.length&&!G.ans){G.ll.f--;var w=shuf([0,1,2,3].filter(function(i){return !G.cur.o[i].c})).slice(0,2);G.hide=w;
+document.querySelectorAll(".opt").forEach(function(o,i){if(w.indexOf(i)>-1)o.disabled=true});b.disabled=true;b.textContent="50/50 ×"+G.ll.f}
+else if(id==="sk"&&G.ll.s>0&&!G.ans){G.ll.s--;pick();game()}
+else if(id==="st"&&!G.ans)finish(G.i?PR[G.i-1]:0,"stop");
+else if(id==="nx"){if(!G.ok)finish(G.i>5?PR[5]:G.i>2?PR[2]:0,"lose");else if(G.i===8)finish(PR[8],"win");else{G.i++;pick();game()}}});
+var IGU="https://www.instagram.com/lipe__castro7/";
+function share(){var L=window.LAST||{n:0,t:0},tx="Acertei "+L.n+" de 9 e ganhei "+L.t+" moedas no Testando seu QI! Jogo feito por @lipe__castro7: "+IGU;
+try{if(navigator.share){navigator.share({text:tx}).catch(function(){});return}}catch(e){}
+try{navigator.clipboard.writeText(tx).then(function(){$("#sh").textContent="✅ Texto copiado!"},function(){$("#sh").textContent="Copie: "+tx})}catch(e){$("#sh").textContent="Copie: "+tx}}
+var AC=null,snd=load("snd",true);
+function beep(f,t,d,ty,v){var o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.05)}
+function sfx(k){if(!snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();var n=AC.currentTime+.01;
+if(k==="ok"){[523.25,659.25,783.99,1046.5].forEach(function(f,i){beep(f,n+i*.09,.28,"triangle",.3)})}
+else if(k==="no"){beep(196,n,.3,"sawtooth",.2);beep(146.8,n+.18,.5,"sawtooth",.2)}
+else if(k==="win"){[523.25,659.25,783.99,1046.5,783.99,1046.5,1318.5].forEach(function(f,i){beep(f,n+i*.13,.35,"square",.15)})}}catch(e){}}
+document.addEventListener("pointerdown",function(){try{if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume()}catch(e){}});
+$("#sn").textContent=snd?"🔊":"🔇";
+$("#sn").addEventListener("click",function(){snd=!snd;save("snd",snd);$("#sn").textContent=snd?"🔊":"🔇";sfx("ok")});
+(function(){var cv=$("#bg"),cx=cv.getContext("2d");if(!cx)return;
+var W=0,H=0,T=0,LT=0,SP={},BN=[],BE=[],BP=[],PL=[],CK=[],DP=[],SY=[],BR={x:0,y:0,s:1},seed=12345;
+var red=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var CL=["#2f8bff","#a855f7","#ffc93c"],TX=["?","π","∑","?","QI","🧠","?","∑"];
+function rnd(){seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296}
+function sprite(c){var s=document.createElement("canvas");s.width=s.height=64;var g=s.getContext("2d"),r=g.createRadialGradient(32,32,0,32,32,32);r.addColorStop(0,"#fff");r.addColorStop(.18,c);r.addColorStop(.5,c+"55");r.addColorStop(1,c+"00");g.fillStyle=r;g.fillRect(0,0,64,64);return s}
+function inB(u,v){return u*u/.9025+(v+.1)*(v+.1)/.3844<1||(u+.25)*(u+.25)/.25+(v-.35)*(v-.35)/.0784<1||(u-.5)*(u-.5)/.1024+(v-.62)*(v-.62)/.04<1||(Math.abs(u-.12)<.09&&v>.5&&v<.95)}
+function build(){seed=12345;var sc=Math.min(W,H*.8)/1.9,i,j;BR={x:W/2,y:H*.46,s:sc};BN=[];var t=0;
+while(BN.length<85&&t<5000){t++;var u=(rnd()*2-1)*.97,v=rnd()*1.7-.75;if(!inB(u,v))continue;var ok=true;
+for(i=0;i<BN.length;i++){var dx=BN[i].u-u,dy=BN[i].v-v;if(dx*dx+dy*dy<.012){ok=false;break}}
+if(ok)BN.push({u:u,v:v,c:BN.length%3,p:rnd()*6})}
+BE=[];for(i=0;i<BN.length;i++)for(j=i+1;j<BN.length;j++){var ex=BN[i].u-BN[j].u,ey=BN[i].v-BN[j].v;if(ex*ex+ey*ey<.045)BE.push([i,j])}
+PL=[];if(BE.length)for(i=0;i<16;i++)PL.push({e:Math.floor(Math.random()*BE.length),t:Math.random(),v:.0008+Math.random()*.001,c:i%2?2:0});
+CK=[];for(i=0;i<9;i++){var x=rnd()*W,y=rnd()*H,pts=[[x,y]],hor=rnd()<.5;
+for(j=0;j<5;j++){var len=60+rnd()*160,dir=rnd()<.5?-1:1;if(hor)x+=len*dir;else y+=len*dir;pts.push([x,y]);hor=!hor}
+var cum=[0];for(j=1;j<pts.length;j++)cum.push(cum[j-1]+Math.abs(pts[j][0]-pts[j-1][0])+Math.abs(pts[j][1]-pts[j-1][1]));
+CK.push({p:pts,c:cum,L:cum[cum.length-1],t:rnd(),v:.00008+rnd()*.00012,k:i%3})}
+DP=[];for(i=0;i<30;i++)DP.push({x:Math.random()*W,y:Math.random()*H,v:.01+Math.random()*.03,s:5+Math.random()*9,c:i%3});
+SY=[];for(i=0;i<TX.length;i++)SY.push({x:Math.random()*W,y:Math.random()*H,v:.01+Math.random()*.02,s:24+Math.random()*30,t:TX[i],k:i%3,p:Math.random()*6})}
+function rs(){var D=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0);build();buildX()}
+function at(k,t){var d=t*k.L,i=1;while(i<k.c.length-1&&d>k.c[i])i++;var f=(d-k.c[i-1])/((k.c[i]-k.c[i-1])||1),a=k.p[i-1],b=k.p[i];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f]}
+function draw(dt){var g=cx.createLinearGradient(0,0,0,H);g.addColorStop(0,"#03061a");g.addColorStop(.6,"#070b2b");g.addColorStop(1,"#120a30");
+cx.globalCompositeOperation="source-over";cx.globalAlpha=1;cx.shadowBlur=0;cx.fillStyle=g;cx.fillRect(0,0,W,H);
+cx.fillStyle="#6ea8ff";cx.globalAlpha=.09;for(var x=20;x<W;x+=40)for(var y=20;y<H;y+=40)cx.fillRect(x,y,2,2);
+cx.globalCompositeOperation="lighter";
+var br=.8+.2*Math.sin(T*.0012),R=BR.s*1.15;
+[[BR.x,BR.y,CL[1],.34],[BR.x-BR.s*.35,BR.y-BR.s*.1,CL[0],.26],[BR.x+BR.s*.4,BR.y+BR.s*.25,CL[2],.12]].forEach(function(b){var r=cx.createRadialGradient(b[0],b[1],0,b[0],b[1],R);r.addColorStop(0,b[2]);r.addColorStop(1,b[2]+"00");cx.globalAlpha=b[3]*br;cx.fillStyle=r;cx.fillRect(0,0,W,H)});
+cx.lineWidth=1.2;cx.lineJoin="round";
+CK.forEach(function(k){cx.globalAlpha=.22;cx.strokeStyle=CL[k.k];cx.beginPath();k.p.forEach(function(q,i){if(i)cx.lineTo(q[0],q[1]);else cx.moveTo(q[0],q[1])});cx.stroke();
+cx.globalAlpha=.5;[k.p[0],k.p[k.p.length-1]].forEach(function(q){cx.beginPath();cx.arc(q[0],q[1],3,0,6.3);cx.stroke()});
+var pt=at(k,k.t);cx.globalAlpha=.95;cx.drawImage(SP[2],pt[0]-12,pt[1]-12,24,24);if(!red){k.t+=k.v*dt;if(k.t>1)k.t=0}});
+BP=BN.map(function(n){return{x:BR.x+n.u*BR.s+Math.sin(T*.0007+n.p)*3,y:BR.y+n.v*BR.s+Math.cos(T*.0008+n.p)*3}});
+cx.lineWidth=1;BE.forEach(function(e){var a=BP[e[0]],b=BP[e[1]];cx.globalAlpha=.32;cx.strokeStyle=CL[BN[e[0]].c];cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()});
+BN.forEach(function(n,i){var f=.7+.3*Math.sin(T*.003+n.p),s=(13+n.c*2)*f;cx.globalAlpha=.9;cx.drawImage(SP[n.c],BP[i].x-s,BP[i].y-s,s*2,s*2)});
+PL.forEach(function(p){var e=BE[p.e],a=BP[e[0]],b=BP[e[1]],x=a.x+(b.x-a.x)*p.t,y=a.y+(b.y-a.y)*p.t;cx.globalAlpha=1;cx.drawImage(SP[p.c],x-14,y-14,28,28);
+if(!red){p.t+=p.v*dt;if(p.t>1){p.t=0;p.e=Math.floor(Math.random()*BE.length);p.c=Math.random()<.5?2:0}}});
+DP.forEach(function(p){cx.globalAlpha=.6;cx.drawImage(SP[p.c],p.x-p.s,p.y-p.s,p.s*2,p.s*2);if(!red){p.y-=p.v*dt;if(p.y<-20){p.y=H+20;p.x=Math.random()*W}}});
+cx.globalCompositeOperation="source-over";cx.textAlign="center";cx.textBaseline="middle";
+SY.forEach(function(p){cx.globalAlpha=.2+.12*Math.sin(T*.002+p.p);cx.font="800 "+p.s+"px system-ui,sans-serif";cx.fillStyle=CL[p.k];cx.fillText(p.t,p.x,p.y);if(!red){p.y-=p.v*dt;if(p.y<-40){p.y=H+40;p.x=Math.random()*W}}});
+cx.globalAlpha=1}
+var BGM=load("bg","cerebro"),ST=[],SH=null,BL=[];
+window.setBg=function(m){BGM=m;save("bg",m);if(red)frame(0)};
+function buildX(){var i;ST=[];for(i=0;i<170;i++)ST.push({x:Math.random()*W,y:Math.random()*H,r:.4+Math.random()*1.6,p:Math.random()*6,v:.002+Math.random()*.01});
+BL=[];var x=0;while(x<W+40){var w=26+Math.random()*44,h=40+Math.random()*130;BL.push({x:x,w:w,h:h,c:Math.floor(Math.random()*3),s:Math.random()});x+=w+2}}
+function fill3(a,b,c){var g=cx.createLinearGradient(0,0,0,H);g.addColorStop(0,a);g.addColorStop(.6,b);g.addColorStop(1,c);cx.globalCompositeOperation="source-over";cx.globalAlpha=1;cx.shadowBlur=0;cx.fillStyle=g;cx.fillRect(0,0,W,H)}
+function blobs(L){cx.globalCompositeOperation="lighter";L.forEach(function(b){var x=W*(b[0]+.14*Math.sin(T*.0003*b[3]+b[5])),y=H*(b[1]+.1*Math.cos(T*.0004*b[4]+b[5])),r=cx.createRadialGradient(x,y,0,x,y,Math.max(W,H)*b[6]);r.addColorStop(0,b[2]);r.addColorStop(1,b[2]+"00");cx.globalAlpha=b[7];cx.fillStyle=r;cx.fillRect(0,0,W,H)});cx.globalCompositeOperation="source-over"}
+function dGal(dt){fill3("#02030d","#0a0626","#16093d");
+blobs([[.2,.25,"#7c3aed",.9,.7,0,.55,.5],[.8,.3,"#2f8bff",1.1,.9,2,.5,.4],[.5,.75,"#ff5ea8",.8,1.2,4,.5,.3],[.85,.85,"#ffc93c",.6,.8,1,.35,.2]]);
+ST.forEach(function(s){cx.globalAlpha=.35+.65*Math.abs(Math.sin(T*.0012+s.p));cx.fillStyle="#fff";cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.3);cx.fill();if(!red){s.x-=s.v*dt;if(s.x<-3){s.x=W+3;s.y=Math.random()*H}}});
+if(!red&&!SH&&Math.random()<.004)SH={x:Math.random()*W,y:Math.random()*H*.5,l:0};
+if(SH){var h=SH;cx.globalAlpha=Math.max(0,1-h.l/40);var gr=cx.createLinearGradient(h.x,h.y,h.x-90,h.y-45);gr.addColorStop(0,"#ffffff");gr.addColorStop(1,"#ffffff00");cx.strokeStyle=gr;cx.lineWidth=2;cx.beginPath();cx.moveTo(h.x,h.y);cx.lineTo(h.x-90,h.y-45);cx.stroke();h.x+=6;h.y+=3;h.l++;if(h.l>40)SH=null}
+cx.globalAlpha=1}
+function dNeon(dt){var hz=H*.62,i;cx.globalCompositeOperation="source-over";cx.shadowBlur=0;
+var g=cx.createLinearGradient(0,0,0,hz);g.addColorStop(0,"#0a0224");g.addColorStop(.6,"#3b0a5e");g.addColorStop(1,"#ff3d8b");cx.globalAlpha=1;cx.fillStyle=g;cx.fillRect(0,0,W,hz);
+for(i=0;i<60;i++){var st=ST[i];cx.globalAlpha=.3+.5*Math.abs(Math.sin(T*.0015+st.p));cx.fillStyle="#fff";cx.fillRect(st.x,st.y*.55*hz/H*1.6,1.5,1.5)}
+var sr=Math.min(W,H)*.2,sx=W/2,sy=hz-sr*.15,sg=cx.createLinearGradient(0,sy-sr,0,sy+sr);sg.addColorStop(0,"#ffe45e");sg.addColorStop(1,"#ff3d8b");cx.globalAlpha=1;cx.fillStyle=sg;cx.beginPath();cx.arc(sx,sy,sr,0,6.3);cx.fill();
+cx.fillStyle="#8a1a74";for(i=0;i<6;i++)cx.fillRect(sx-sr,sy+sr*(.02+i*.15),sr*2,2+i*1.8);
+var k=H/800;BL.forEach(function(b){var h=b.h*k;cx.globalAlpha=1;cx.fillStyle="#0a0420";cx.fillRect(b.x,hz-h,b.w,h);cx.globalAlpha=.7;cx.strokeStyle=CL[b.c];cx.lineWidth=1;cx.strokeRect(b.x,hz-h,b.w,h);
+cx.fillStyle=CL[(b.c+1)%3];for(var y=hz-h+8;y<hz-6;y+=12)for(var x=b.x+5;x<b.x+b.w-5;x+=9){if(((x*7+y*13+b.s*100)|0)%5<2){cx.globalAlpha=.5+.4*Math.sin(T*.002+x+y);cx.fillRect(x,y,3,4)}}});
+var fg=cx.createLinearGradient(0,hz,0,H);fg.addColorStop(0,"#2a0a4d");fg.addColorStop(1,"#05020f");cx.globalAlpha=1;cx.fillStyle=fg;cx.fillRect(0,hz,W,H-hz);
+var ph=(T*.0005)%1;cx.strokeStyle="#ff3dd9";
+for(i=0;i<14;i++){var z=(i+ph)/14,y=hz+(H-hz)*z*z;cx.globalAlpha=.15+.6*z;cx.lineWidth=1+z*1.5;cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke()}
+cx.strokeStyle="#2f8bff";cx.lineWidth=1.2;for(i=-12;i<=12;i++){cx.globalAlpha=.5;cx.beginPath();cx.moveTo(W/2,hz);cx.lineTo(W/2+i*W*.14,H);cx.stroke()}
+cx.globalAlpha=1}
+function dSua(dt){fill3("#0a0e2a","#141046","#1d0f4a");
+blobs([[.2,.2,"#2f8bff",.5,.4,0,.6,.35],[.8,.45,"#a855f7",.6,.5,2,.6,.35],[.4,.9,"#ffc93c",.4,.5,4,.5,.16],[.9,.1,"#a855f7",.3,.4,1,.4,.2]]);
+DP.forEach(function(p){cx.globalAlpha=.25;cx.drawImage(SP[p.c],p.x-p.s*1.4,p.y-p.s*1.4,p.s*2.8,p.s*2.8);if(!red){p.y-=p.v*dt*.6;if(p.y<-20){p.y=H+20;p.x=Math.random()*W}}});
+cx.globalAlpha=1}
+function frame(dt){try{var f={cerebro:draw,galaxia:dGal,neon:dNeon,suave:dSua}[BGM]||draw;f(dt)}catch(e){}}
+function loop(ts){var dt=Math.min(50,ts-LT||16);LT=ts;T=ts;frame(dt);requestAnimationFrame(loop)}
+CL.forEach(function(c,i){SP[i]=sprite(c)});rs();addEventListener("resize",function(){rs();frame(0)});
+if(red)frame(0);else requestAnimationFrame(loop)})();
+function onl(){$("#off").style.display=navigator.onLine?"none":"table"}
+addEventListener("online",onl);addEventListener("offline",onl);onl();
+home();
+</script>
+</body>
+</html>
